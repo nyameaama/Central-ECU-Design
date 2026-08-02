@@ -1,143 +1,108 @@
-# Central ECU Design
+# Central ECU
 
-The project builds on the [Converse Engine](https://github.com/nyameaama/Converse-Engine) design. The goal is to bring the engine-side electronics into one package: valve and ignition control, pressure and temperature sensing, power management, safety, and CAN communication with other vehicle zones.
+ECU for the [Converse Engine](https://github.com/nyameaama/Converse-Engine). This box handles the electronics mounted on the engine. Tank pressure and tank-side hardware stay with the tank controller.
 
-## Engine Design
+The ECU runs the local engine sequence, drives the valves and igniter, reads the sensors, and talks to the rest of the vehicle over CAN FD.
 
-| Exterior view                                                       | Section view                                                       |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| ![Converse Engine exterior rendering](assets/SCR-20260704-pyvc.png) | ![Converse Engine section rendering](assets/SCR-20260704-pzeb.png) |
+| Engine | Section view |
+| --- | --- |
+| ![Converse Engine exterior](assets/SCR-20260704-pyvc.png) | ![Converse Engine section](assets/SCR-20260704-pzeb.png) |
 
-## Design Story
+## Current enclosure
 
-The Converse Engine is pressure-fed, so tank pressurization and upstream propellant control are handled by the tank zone. This ECU handles the hardware mounted on the engine itself. It receives commands from the vehicle and tank-zone controllers over CAN / CAN FD, runs the local engine sequence, reads the sensors, and reports status and faults.
+![First ECU enclosure](assets/SCR-20260705-bmch.png)
 
-I have split the design into four main areas:
+This is the first enclosure pass. I am using it to get a real PCB outline and start placing connectors. Dimensions will move as the board and battery mounts develop.
 
-1. **Vehicle interface** — 48 V input power, CAN / CAN FD, arm/safe, abort, and service interlocks.
-2. **Engine control** — ignition, valve timing, purge, shutdown, safing, and fault handling.
-3. **Power and I/O** — valve drivers, sensor inputs, ignition power, rail monitoring, and the backup battery.
-4. **Packaging** — the enclosure, PCB shape, connectors, cooling, vibration support, sealing, and service access.
+Current CAD notes:
 
-With the first enclosure drawing complete, there is now a real mechanical boundary for the board instead of an open-ended schematic. That drawing will be the starting point for the PCB outline and component placement in Altium.
+- 18 mm main body height
+- 23 mm max height
+- R2 top edge
+- keep the R39 cutout clear on the PCB
+- R6 outer corners with the smaller R9, R7, and R3 transitions shown in CAD
+- two 9.5 mm holes mount the enclosure to the engine
+- 5.5 mm perimeter holes mount the PCB assembly
+- battery needs its own clamp, insulation, covered terminals, and service access
+- connectors need to stay reachable with the ECU installed
+- lid and connector openings need a continuous seal
 
-## Preliminary ECU Packaging
+## Power
 
-![Preliminary ECU enclosure drawing](assets/SCR-20260705-bmch.png)
+- 48 V vehicle input
+- 24 V valve rail
+- 12 V ignition and sensor rails
+- 5 V analog and communications rail
+- 3.3 V logic rail
+- EnerSys CYCLON `0819-0020` 12 V, 2.5 Ah pure-lead AGM backup battery
 
-This is the first pass at the ECU enclosure. The dimensions and feature locations are still preliminary and will change as the connectors, PCB, battery mounting, and engine mounting points are worked out together.
+The backup battery only runs the controller, CAN, and sensor measurement electronics. It does not run the valves or igniter. Loss of valve power closes the normally closed valves.
 
-### CAD-Derived Packaging Assumptions
+Battery support needs a fuse, disconnect, automatic switchover, voltage and current measurement, temperature measurement, and low voltage cutoff. Charge it only while the engine is safe.
 
-- The enclosure is shallow, asymmetric, and intended to mount directly to the engine structure.
-- The current side view shows an 18 mm main body height and a 23 mm maximum height.
-- The top edge uses a nominal R2 radius.
-- The large R39 cutout needs to stay clear in both the PCB outline and component placement.
-- The remaining outline uses R6 corners with local R9, R7, and R3 transitions around the smaller cutouts.
-- The two center Ø9.5 mm holes mount the enclosure directly to the engine.
-- The Ø5.5 mm holes around the edge mount the internal ECU/PCB assembly to the enclosure.
-- Fastener selection, tolerances, vibration locking, and any electrical bonding through these mounting points still need to be finalized.
-- The perimeter cutouts and raised walls will determine the final PCB shape, connector locations, and cable exits.
-- The lid and base will need a continuous seal around the fasteners and connector openings.
-- The PCB and 3S 18650 pack need proper mechanical support for engine vibration and shock.
-- The battery pack will have its own section within the ECU assembly, with electrical insulation, temperature monitoring, and a vent path away from the main electronics and propellant hardware.
-- Connectors should remain accessible with the ECU installed on the engine.
+## Valves
 
-## Technical Requirements
+- MFV, main fuel
+- MOV, main oxidizer
+- fuel inlet isolation
+- oxidizer inlet isolation
+- FPV, fuel purge
+- OPV, oxidizer purge
+- CPV, chamber and injector purge
+- oxidizer bleed and chilldown
+- FBV, fuel bleed
+- IFV, igniter fuel
+- IOV, igniter oxidizer
+- IPV, igniter purge
+- FDV, fuel manifold dump
+- ODV, oxidizer manifold dump
 
-### Rocket Engine ECU — Engine Mounted
+Each driver needs current and voltage feedback, open and short detection, an inductive clamp, and a common hardware cutoff.
 
-The ECU will be mounted directly on the engine and will control only local engine-mounted devices. It must acquire engine telemetry, enforce local inhibits, report faults, and exchange commands and status with the tank zone and vehicle controller.
+## Pressure
 
-### Power
+- main fuel inlet
+- main oxidizer inlet
+- fuel manifold
+- oxidizer manifold
+- chamber
+- igniter fuel
+- igniter oxidizer
+- purge
 
-- Input power from external 48 V bus
-- Internal 12 V valve rail
-- Internal 5 V sensor rail
-- Internal 3.3 V logic rail
-- Integrated 3S 18650 reserve / backup battery pack
-- Onboard 3S lithium-ion backup battery charger powered from the external 48 V bus
-- Per-cell voltage monitoring, balancing, overcharge, over-discharge, overcurrent, and short-circuit protection
-- Backup battery temperature sensing and charge inhibit outside the permitted temperature range
-- Automatic, interruption-free switchover between the external bus and backup battery
-- Backup battery isolation / service disconnect
-- Backup battery state-of-charge and fault telemetry
-- Valve power cutoff / inhibit
-- Voltage and current sensing for local ECU rails
-- Protected output power to local engine-mounted devices only
+## Temperature
 
-### Valves
+- chamber wall
+- injector
+- fuel inlet
+- oxidizer inlet
+- valve inlet and outlet fluid temperature where needed
+- ECU board
+- valve drivers
+- cooling jacket inlet and outlet
 
-- MFV: Main Fuel Valve
-- MOV: Main Oxidizer Valve
-- Fuel Inlet Isolation Valve
-- Oxidizer Inlet Isolation Valve
-- FPV: Fuel-Side Purge Valve
-- OPV: Oxidizer-Side Purge Valve
-- CPV: Chamber / Injector Purge Valve
-- Oxidizer Bleed / Chilldown Valve
-- FBV: Fuel Bleed Valve
-- IFV: Igniter Fuel Valve
-- IOV: Igniter Oxidizer Valve
-- IPV: Igniter Purge Valve
-- FDV: Fuel Manifold Dump Valve
-- ODV: Oxidizer Manifold Dump Valve
+ECU board and valve driver temperature are PCB measurements. The rest come in through the engine harness.
 
-### Valve Driver Interface
+## Ignition
 
-- Solenoid driver circuits
-- Per-channel voltage sensing
-- Per-channel current sensing
-- Open-load detection
-- Short-circuit detection
-- Flyback / inductive clamp protection
-- Global valve power cutoff
-- Valve rail overvoltage / undervoltage protection
+- igniter power switch
+- current and voltage measurement
+- hardware enable and inhibit
 
-### Pressure Transducer Inputs
+## Safety inputs
 
-- Main fuel inlet pressure
-- Main oxidizer inlet pressure
-- Fuel manifold pressure
-- Oxidizer manifold pressure
-- Chamber pressure
-- Igniter fuel pressure
-- Igniter oxidizer pressure
-- Purge pressure
+- arm and safe
+- abort and inhibit
+- valve power feedback
+- igniter enable feedback
+- service connector interlock
 
-### Temperature Inputs
+## Communications
 
-- Chamber wall thermistors / thermocouples
-- Injector temperature
-- Fuel inlet temperature
-- Oxidizer inlet temperature
-- Valve body temperatures
-- ECU board temperature
-- Valve driver temperature
-- Cooling jacket inlet/outlet temperature
+- CAN FD
+- tank controller commands and telemetry
+- vehicle controller commands
+- heartbeat and timeout handling
+- fault reporting
 
-### Ignition
-
-- Igniter power driver -> electrical igniter
-- Igniter current sensing
-- Igniter voltage sensing
-- Igniter enable/inhibit circuit
-
-### Engine Local Safety Inputs
-
-- Engine arm/safe input
-- Local abort / inhibit input
-- Valve power enable feedback
-- Igniter enable feedback
-- Service connector interlock
-
-### Zone Communications
-
-- CAN / CAN FD controller
-- CAN transceiver
-- Tank zone command interface
-- Tank zone telemetry interface
-- Vehicle controller command interface
-- Heartbeat monitoring
-- CAN timeout detection
-- Fault reporting
+Parts, interfaces, and the power budget are in [Systems Eng](Systems%20Eng/README.md).
