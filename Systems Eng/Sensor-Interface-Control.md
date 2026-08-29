@@ -21,7 +21,7 @@ The remote chamber pressure sensor uses the same interface. The sense tube will 
 
 Probe is Omega `BLMI-XL-K-116U-6-CC`. Cable plug is `SMPW-K-M`. PCB socket is `PCC-SMP-K-5`.
 
-Keep Type K metal all the way to the PCB socket. Do not run these signals through the copper AMPSEAL contacts. Put each MAX31856 close to its socket and away from regulators and valve switches.
+The Type K metal runs to the PCB socket. The thermocouples bypass the copper AMPSEAL contacts. Each MAX31856 sits beside its socket and away from regulators and valve switches.
 
 I am laying out eight channels. Five are used and three are spare.
 
@@ -48,10 +48,16 @@ Two 35-way AMPSEAL headers give 70 pins.
 
 Split power and ground between the two harness branches. Total AST20PT current is only 320 mA, so connector current is not a problem.
 
+## Backup main-valve position feedback
+
+The Buschjost `1E` switch is a three-wire PNP normally-open inductive sensor. It runs from 10 to 30 VDC, draws less than 10 mA at 24 V, and can source 100 mA. Run the four switches from `SENS_12V` so closed-valve feedback stays alive on backup power. A protected divider and Schmitt input bring each 12 V PNP signal into the AM2634. It does not connect straight to a 3.3 V pin.
+
+The valve order sets the sensed end position. Use closed indication for the four main valves. The supplied switch lead is 2 m, three-pole, with an LED.
+
 ## Layout notes
 
-- keep sensor ground away from valve return until the power entry point
-- AST20PT needs 10 to 28 V, not the 5 V rail
-- do not connect a 1 to 5 V output straight to a 3.3 V ADC
+- sensor ground meets valve return at the power entry point
+- AST20PT supply is 10 to 28 V
+- the 1 to 5 V outputs are scaled before the 3.3 V ADC
 - sensor sample rate is 400 Hz max
-- set the analog filter from the real sample rate, not the 400 Hz headline number
+- analog filter corner follows the selected sample rate

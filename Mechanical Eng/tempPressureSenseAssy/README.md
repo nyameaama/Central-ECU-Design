@@ -11,4 +11,4 @@ Locations I need to cover:
 - cooling jacket inlet and outlet
 - remote chamber pressure pickup
 
-This folder is mechanical only. Keep the PCB and other electrical design files out of here.
+This folder contains the mechanical CAD only. PCB and electrical design files live in the EE project folders.
