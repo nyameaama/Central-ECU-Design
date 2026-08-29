@@ -39,20 +39,20 @@ Two 35-way AMPSEAL headers give 70 pins.
 
 | Use | Pins |
 | --- | ---: |
-| Pressure outputs | 32 |
-| AST20PT temperature outputs | 32 |
+| Pressure outputs | 20 |
+| AST20PT temperature outputs | 20 |
 | Sensor power | 2 |
 | Sensor returns | 2 |
-| Spare | 2 |
+| Spare | 26 |
 | Total | 70 |
 
-Split power and ground between the two harness branches. Total AST20PT current is only 320 mA, so connector current is not a problem.
+Split power and ground between the two harness branches. Total AST20PT current is 200 mA.
 
-## Backup main-valve position feedback
+## Main-valve position feedback
 
-The Buschjost `1E` switch is a three-wire PNP normally-open inductive sensor. It runs from 10 to 30 VDC, draws less than 10 mA at 24 V, and can source 100 mA. Run the four switches from `SENS_12V` so closed-valve feedback stays alive on backup power. A protected divider and Schmitt input bring each 12 V PNP signal into the AM2634. It does not connect straight to a 3.3 V pin.
+The Buschjost `1E` switch is a three-wire PNP normally-open inductive sensor. It runs from 10 to 30 VDC, draws less than 10 mA at 24 V, and can source 100 mA. Run the two switches from `SENS_12V` so closed-valve feedback stays alive on backup power. A protected divider and Schmitt input bring each 12 V PNP signal into the AM2634. It does not connect straight to a 3.3 V pin.
 
-The valve order sets the sensed end position. Use closed indication for the four main valves. The supplied switch lead is 2 m, three-pole, with an LED.
+The valve order sets the sensed end position. Use closed indication for MFV and MOV. The supplied switch lead is 2 m, three-pole, with an LED.
 
 ## Layout notes
 

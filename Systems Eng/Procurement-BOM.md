@@ -1,19 +1,19 @@
 # Parts List
 
-Stock was checked on 2026-08-01. Counts will change, so check again before ordering.
+General stock was checked on 2026-08-01. TPS26633, i7A, and Parker G7 status were checked on 2026-08-28. Counts will change before the first build.
 
 ## Sensors
 
 | Qty | Part | Use | Status |
 | ---: | --- | --- | --- |
-| 32 max | TE `AST20PT4A01500P3Y1H000` | 0 to 1500 psig plus fluid temperature, dual 1 to 5 V output, M12, 1/4 inch MNPT | AST20PT is active. This setup needs a TE or LADD quote. |
-| 32 max | Phoenix `1681127` | Field-wireable M12 plug for the AST20PT | Active. DigiKey had 2,945. |
+| 20 max | TE `AST20PT4A01500P3Y1H000` | 0 to 1500 psig plus fluid temperature, dual 1 to 5 V output, M12, 1/4 inch MNPT | AST20PT is active. This setup needs a TE or LADD quote. |
+| 20 max | Phoenix `1681127` | Field-wireable M12 plug for the AST20PT | Active. DigiKey had 2,945. |
 | 5 | Omega `BLMI-XL-K-116U-6-CC` | Type K probe for four chamber wall points and one injector point | Orderable from Omega distributors. |
 | 5 | Omega `SMPW-K-M` | Type K cable plug | Active. DigiKey had more than 3,000. |
 | 1 pack | Omega `PCC-SMP-K-5` | Five Type K PCB sockets | Active. DigiKey had 178 packs. |
 | 8 | Analog Devices `MAX31856MUD+T` | Thermocouple converter. Five used and three spare. | Production part. Mouser had more than 7,900. |
 
-The 32 AST20PT count is the worst case. It allows two around every valve, one remote chamber pickup, two cooling jacket points, and one spare. Shared pipe nodes should bring the real count down.
+The 20 AST20PT count allows two around each retained valve, one remote chamber pickup, two cooling jacket points, and one spare. Shared pipe nodes should bring the fitted count down.
 
 ## ECU connectors
 
@@ -26,38 +26,27 @@ The 32 AST20PT count is the worst case. It allows two around every valve, one re
 | 70 plus spares | TE `770520-3` | Gold socket contacts, 16 to 20 AWG |
 | as needed | TE `770678-1` | Plugs for unused cavities |
 
-The two AMPSEAL headers carry the 64 AST20PT signals, two sensor power feeds, two returns, and two spare circuits. The thermocouples use their own Type K connectors and do not go through AMPSEAL.
+The two AMPSEAL headers carry 40 AST20PT signals, two sensor power feeds, two returns, and 26 spare circuits. The thermocouples use their own Type K connectors and do not go through AMPSEAL.
 
 ## Valves
 
 | Qty | Part | Use | Status |
 | ---: | --- | --- | --- |
-| 2 | Triton `TS-SP08B2000-0210` | MFV and fuel inlet isolation. NC, AS5202-08 ports, Cv 2.5, 100 to 2,000 psia. | Baseline only. Triton lists RP-1 and N2O, not propane. Propane service and the published `<500 seconds` closing-time entry are open. |
-| 2 | Triton `TS-SP16A2000-0200` | MOV and oxidizer inlet isolation. NC, AN-16 ports, Cv 21, 50 to 2,000 psia. | Current oxidizer selection. Triton lists N2O service. Cleaning certification and the 2 second maximum closing time still need to land in the engine requirements. |
-| 2 backup | Buschjost `2/918-69/0824/.272-GO-1E`, 24 VDC | Fuel main and inlet isolation backup. NC direct coaxial valve, G1/2, DN10, Kv 2.5. | Active family. Public STEP is in Mechanical Eng. Made to order. |
-| 2 backup | Buschjost `2/918-24/0824/.272-GO-1E`, 24 VDC | Oxidizer main and inlet isolation backup. NC direct coaxial valve, G3/4, DN20, Kv 6.8. | Active family. Public STEP is in Mechanical Eng. Made to order. |
-| 6 | Amphenol `D38999/26WA98SN` | Harness mate for the Triton valve receptacle. Four used and two spare. | Active part. The Triton pin assignment is not public. |
-| 10 max | Valcor `V19800`, NC, 0.085 inch ESEO, 30 ohm continuous coil, top `MS3102A-10SL-4P` receptacle | Igniter, purge, bleed, chilldown, and dump | Valcor must assign the orderable dash number and approve each fluid. |
-| 14 max | Amphenol `MS3106A10SL-4S` | Cable plug for the standard Valcor receptacle | DigiKey had 229. Confirm the receptacle with Valcor first. |
+| 1 | Buschjost `2/918-69/0824/.272-GO-1E`, 24 VDC | MFV. NC direct coaxial valve, G1/2, DN10, Kv 2.5. | Main fuel selection. Public STEP is in Mechanical Eng. Made to order. |
+| 1 | Buschjost `2/918-24/0824/.272-GO-1E`, 24 VDC | MOV. NC direct coaxial valve, G3/4, DN20, Kv 6.8. | Main oxidizer selection. Public STEP is in Mechanical Eng. Made to order. |
+| 3 | Parker `20CC04EP7D7B`, 24 VDC | FPV, OPV, and CPV. NC direct-acting G7 valve, 1/4 NPT, Cv 0.05. | Purge baseline. Wilson listed 13 at $273.87 each. Final purge flow is still open. |
+| 3 | Parker `ELECE5` | DIN cord set for the G7 valve | Six-foot lead set. |
+| 3 | Valcor `V19800`, NC, 0.085 inch ESEO, 30 ohm continuous coil, top `MS3102A-10SL-4P` receptacle | IFV, IOV, and IPV | Igniter-valve baseline. Valcor must assign the orderable dash number and approve each fluid. |
+| 3 | Amphenol `MS3106A10SL-4S` | Cable plug for the standard Valcor receptacle | Receptacle stays tied to the final Valcor dash number. |
 
 The engine model calls for 0.39879 kg/s of propane and 1.75468 kg/s of N2O. I used 0.50 kg/L propane and 0.75 kg/L N2O for the first valve check. That gives 12.6 gpm fuel and 37.1 gpm oxidizer.
 
 Estimated drop through one valve:
 
-- `TS-SP08`: 12.7 psi at the fuel design flow
-- `TS-SP16`: 2.3 psi at the oxidizer design flow
+- fuel Buschjost: 9.5 psi
+- oxidizer Buschjost: 16.7 psi
 
-There are two valves in series on each propellant line, so the first-pass totals are 25.4 psi fuel and 4.7 psi oxidizer. Both Triton valves use upstream propellant pressure to operate the internal pilot. There is no separate pneumatic supply.
-
-Both valves accept 18 to 36 VDC and draw 0.28 A at 28 VDC. The 24 V driver allocation is 0.50 A per channel. Loss of coil power returns the valve closed. The electrical receptacle is `D38999/25YA98PN`; `D38999/26WA98SN` is the three-socket cable mate.
-
-The oxidizer line moves to AN-16 at the valve. The Converse piping sheet still lists line sizing as unfinished, so this does not conflict with a released pipe size. The fuel valve keeps the earlier -8 interface.
-
-Triton supplies the complete valve envelope CAD through the download form on each product page. The form requires a name, email address, and CAPTCHA, then sends the file by email. No public STEP URL is exposed on either page.
-
-### Buschjost backup
-
-These are complete electric valves. They do not need an actuation-air circuit.
+These are complete direct-electric valves. They use no pilot-air circuit. Loss of coil power returns them closed.
 
 | | Fuel | Oxidizer |
 | --- | ---: | ---: |
@@ -67,31 +56,43 @@ These are complete electric valves. They do not need an actuation-air circuit.
 | Current at 24 V | 1.83 A | 2.21 A |
 | Switching time at 6 bar gas | 50 ms on, 80 ms off | 110 ms on, 100 ms off |
 | Estimated drop, one valve | 9.5 psi | 16.7 psi |
-| Estimated drop, two valves | 19.1 psi | 33.4 psi |
 
 Both configurations are 0 to 100 bar, 316 Ti stainless, PTFE/FKM, normally closed, IP65 with the Form A plug installed, and rated for continuous coil duty. `GO` is the cleaned version. Buschjost says it may contain oxygen-approved lubricant and does not claim BAM approval. `1E` adds one inductive position sensor and 25 mm to the valve length. The switching times are catalog tests with 6 bar gas, not measurements with this engine's liquids and pressures.
 
 Buschjost's resistance table marks PTFE/FKM and 316 Ti compatible with LPG and N2O. That clears the material screen. It is not a propulsion qualification or an oxidizer-cleaning certificate.
 
-The valve connector is EN 175301-803 Form A and comes with the valve. Specify the 24 VDC coil on the order because voltage is not encoded in the part string. The position sensor has a separate three-wire, 2 m lead. Set it to report closed when ordering.
+The valve connector is EN 175301-803 Form A and comes with the valve. The build specification calls out the 24 VDC coil because voltage is not encoded in the part string. The position sensor has a separate three-wire, 2 m lead and is ordered for closed-position indication.
 
 The fuel model uses a G1/2 to -8 adapter. The oxidizer model uses a G3/4 to -12 adapter.
 
-`R272` stays backup, not a drop-in replacement for Triton. Its 100 bar rating is 1,450 psi and the published temperature floor is -10 C. The engine chamber is 700 psi, but the Converse feed MAWP is not frozen. The ECU working minimum is -15 C. The option page calls it bidirectional, while the family sheet only gives 16 bar reverse pressure. Feed MAWP and the shutdown transient still have to clear those limits. The coil drivers also change from 0.5 A to 2.5 A fuel and 3 A oxidizer.
+The open release items are the 100 bar working-pressure limit, the -10 C fluid and ambient floor, the 16 bar reverse-pressure entry in the family sheet, and the `GO` cleaning certificate for N2O service. The engine chamber is 700 psi, but feed MAWP and the shutdown transient are not frozen yet. The ECU working minimum is -15 C, so the valve installation needs a separate thermal limit or a warmer qualified build.
 
-The STEP files download directly from the exact product pages without an account. They are complete electric-valve envelopes with the solenoid and `1E` switch, not manual-valve models. The source filenames say R270/R271/R272 because Buschjost shares the envelope across those pressure versions. The valves are current but made to order. Buschjost and its US reseller do not show stock for these configurations.
+The STEP files download directly from the exact product pages without an account. They are the complete valve, solenoid, connector, and `1E` switch envelopes. The source filenames cover R270, R271, and R272 because the pressure versions share the same envelope.
+
+The Parker purge valve is rated for zero to 2200 psi differential with air or inert gas. It uses a 3/64 inch orifice and a 10 W coil. The exact assembly weighs 1.25 lb. The `Cv 0.05` flow check stays open until purge supply pressure and required mass flow are released.
 
 The V19800 electrical setup is fixed to the 30 ohm coil. Valcor publishes 1.3 A at 30 V and 70 F, which scales to about 1.04 A at 24 V. Small-valve driver capacity is 1.3 A per channel.
 
-Valcor does not publish an order-code builder for the V19800. The description above is the RFQ configuration; the factory dash number becomes the purchasing identifier.
+Valcor does not publish an order-code builder for the V19800. The description above is the RFQ configuration. The factory dash number becomes the purchasing identifier.
+
+IFV, IOV, and IPV remain provisional. A custom three-phase igniter actuator would replace these three valve channels with an inverter and new current sensing.
 
 ## Power conversion
 
 | Qty | Part | Use | Status |
 | ---: | --- | --- | --- |
-| 1 | TDK-Lambda `I7A4W033A033V-003-R` | 48 V to 24 V valve rail, 500 W module | In production. 97% typical at the published 48 V to 24 V full-load point. |
+| 1 | TDK-Lambda `I7A4W033A033V-003-R` | 28 V nominal bus to regulated 24 V valve rail, 500 W module | In production. Input is 18 to 60 V with input above output. |
+| 10 buy, 8 fitted | TI `TPS26633PWPR` | One high-side eFuse per valve output, plus two build spares | Active production. 4.5 to 60 V, 0.6 to 6 A adjustable limit, 31 mOhm typical FET. |
 | 1 | TI `TPS6538600QDCARQ1` | AM2634 sequencing, watchdog, and supply supervision | TI-recommended AM263x PMIC. |
 | 1 | TI `TPS62903-Q1` | 1.2 V AM2634 core supply, 3 A | TI-recommended companion buck. |
+
+The Buschjost coils stay on the regulated 24 V rail. A 28 V direct connection is 16.7% above the nameplate value, and Buschjost does not publish a 28 V operating range for these exact coils.
+
+Each `TPS26633PWPR` uses `SHDN` as its valve command. A 47 kOhm pull-down leaves the channel off while the controller is unpowered or its pin is high impedance. `MODE` stays open for latch-off after an overload. A new command cycle clears the latch. `IMON`, `FLT`, and `PGOOD` return channel current and fault state to the controller.
+
+First-pass current limits are 2.52 A for the fuel main valve with 7.15 kOhm at `ILIM`, 2.98 A for the oxidizer main valve with 6.04 kOhm, 0.75 A for each Parker purge valve with 24.0 kOhm, and 1.59 A for each V19800 channel with 11.3 kOhm. The values include cold-coil margin and remain below the 6 A device limit.
+
+Each valve output also gets its own inductive clamp near the harness connector. Buschjost does not publish coil inductance, so clamp voltage and release time get closed on the valve bench test.
 
 ## Backup battery
 
@@ -119,7 +120,7 @@ The quote still needs these entries:
 - shock and vibration ratings
 - lead time and minimum order
 
-The required pressure range is 0 to 1,500 psig. The stocked 150 and 200 psig variants do not cover the feed system.
+The sensor range is 0 to 1,500 psig.
 
 ## Links
 
@@ -131,18 +132,19 @@ The required pressure range is 0 to 1,500 psig. The stocked 150 and 200 psig var
 - [MAX31856](https://www.analog.com/en/products/max31856.html)
 - [TE 776231-1](https://www.te.com/en/product-776231-1.html)
 - [TE 776164-1](https://www.te.com/en/product-776164-1.html)
-- [Triton TS-SP08B2000-0210](https://www.triton-space.com/products/valves/solenoid/ts-sp08b2000-0210)
-- [Triton TS-SP16A2000-0200](https://www.triton-space.com/products/valves/solenoid/ts-sp16a2000-0200)
-- [Buschjost fuel backup](https://www.buschjostventile.de/en/products/2-918-08-R-272/details/2-918-69-0824-R272-GO-1E)
-- [Buschjost oxidizer backup](https://www.buschjostventile.de/en/products/2-918-08-R-272/details/2-918-24-0824-R272-GO-1E)
+- [Buschjost fuel valve](https://www.buschjostventile.de/en/products/2-918-08-R-272/details/2-918-69-0824-R272-GO-1E)
+- [Buschjost oxidizer valve](https://www.buschjostventile.de/en/products/2-918-08-R-272/details/2-918-24-0824-R272-GO-1E)
 - [Buschjost material resistance table](https://www.buschjostventile.de/api/pdf/resistance-table?locale=en)
 - [Buschjost inductive position sensor](https://www.buschjostventile.de/api/attachments/93eacf07-07ba-4c1d-8806-5cbe40241766.pdf)
 - [Buschjost US reseller](https://adamsllc.net/brands/buschjost/)
-- [Amphenol D38999/26WA98SN](https://www.mouser.com/ProductDetail/Amphenol-Aerospace/D38999-26WA98SN)
+- [Parker 20CC04EP7D7B](https://www.wilson-company.com/product/20cc04ep7d7b/parker-g7-series-solenoid-valves)
+- [Parker G7 catalog](https://www.parker.com/content/dam/Parker-com/Literature/Fluid-Control-Division/Catalogs/Parker_FCD_Catalog-G7.pdf)
+- [Parker G7 CAD configurator](https://parker-embedded.partcommunity.com/3d-cad-models/sso/?info=parkerfcd%2Fg720series20solenoid20valves%2Fg720series20solenoid20valves.prj)
 - [Valcor V19800](https://www.valcor.com/valcor-technical-datasheets/2-way-direct-acting-shut-off-solenoid-valve-V19800.pdf)
 - [Amphenol valve plug](https://www.digikey.com/en/products/detail/amphenol-industrial-operations/MS3106A10SL-4S/378636)
 - [EnerSys CYCLON](https://www.enersys.com/en-gb/products/batteries/cyclon/cyclon/)
 - [EnerSys 0819-0020 stock](https://www.osibatteries.com/enersys-cyclon-0819-0020-assembly-battery-2x3-monobloc)
 - [TDK-Lambda I7A4W033A033V-003-R](https://product.tdk.com/en/search/power/switching-power/dc-dc-converter/info?part_no=I7A4W033A033V-003-R)
+- [TI TPS2663](https://www.ti.com/product/TPS2663)
 - [TI TPS653860-Q1](https://www.ti.com/product/TPS653860-Q1)
 - [TI TPS62903-Q1](https://www.ti.com/product/TPS62903-Q1)

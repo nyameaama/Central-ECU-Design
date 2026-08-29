@@ -7,7 +7,7 @@ Locations I need to cover:
 - chamber wall
 - injector
 - fuel and oxidizer inlets
-- both sides of each valve where needed
+- both sides of the retained valves where needed
 - cooling jacket inlet and outlet
 - remote chamber pressure pickup
 

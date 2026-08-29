@@ -29,8 +29,8 @@ Current CAD notes:
 
 ## Power
 
-- 48 V vehicle input
-- 24 V valve rail
+- 28 V nominal aircraft bus
+- regulated 24 V valve rail
 - 12 V ignition and sensor rails
 - 5 V analog and communications rail
 - 3.3 V logic rail
@@ -44,20 +44,16 @@ Battery support needs a fuse, disconnect, automatic switchover, voltage and curr
 
 - MFV, main fuel
 - MOV, main oxidizer
-- fuel inlet isolation
-- oxidizer inlet isolation
 - FPV, fuel purge
 - OPV, oxidizer purge
 - CPV, chamber and injector purge
-- oxidizer bleed and chilldown
-- FBV, fuel bleed
 - IFV, igniter fuel
 - IOV, igniter oxidizer
 - IPV, igniter purge
-- FDV, fuel manifold dump
-- ODV, oxidizer manifold dump
 
-Each driver needs current and voltage feedback, open and short detection, an inductive clamp, and a common hardware cutoff.
+Each valve has its own `TPS26633PWPR` high-side eFuse. `SHDN` is the valve command, so low removes coil power and the normally closed valve returns closed. The eFuse supplies current monitoring and fault status. Each channel also has output-voltage sensing, an inductive clamp, and the common hardware inhibit.
+
+The three igniter valves stay as solenoids for this pass. A custom three-phase igniter actuator would need a different power stage and is not part of the current ECU channel design.
 
 ## Pressure
 
