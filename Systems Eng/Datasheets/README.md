@@ -10,8 +10,8 @@
 | MAX31856 | [Analog Devices datasheet](https://www.analog.com/media/en/technical-documentation/data-sheets/max31856.pdf) | Thermocouple interface |
 | Buschjost 2/918 R272 | [Buschjost-2-918-R272-100bar.pdf](Buschjost-2-918-R272-100bar.pdf) | Main fuel and oxidizer valves |
 | Buschjost 1E sensor | [Buschjost-Inductive-Position-Sensor.pdf](Buschjost-Inductive-Position-Sensor.pdf) | Main-valve position switch |
-| Parker G7 | [Parker-G7-Series-Solenoid-Valves.pdf](Parker-G7-Series-Solenoid-Valves.pdf) | FPV, OPV, and CPV purge-valve baseline |
-| Valcor V19800 | [Valcor-V19800-Fuel-Shutoff-Valve.pdf](Valcor-V19800-Fuel-Shutoff-Valve.pdf) | IFV, IOV, and IPV igniter-valve baseline |
+| Parker G7 | [Parker-G7-Series-Solenoid-Valves.pdf](Parker-G7-Series-Solenoid-Valves.pdf) | CPV and IPV regulated-GN2 purge valves |
+| Valcor V19800 | [Valcor-V19800-Fuel-Shutoff-Valve.pdf](Valcor-V19800-Fuel-Shutoff-Valve.pdf) | IFV and IOV torch valves |
 | TI TPS2663x | [TI-TPS2663x-eFuse.pdf](TI-TPS2663x-eFuse.pdf) | Per-valve eFuse and high-side switch |
 | TDK-Lambda i7A | [TDK-Lambda-i7A-Specification.pdf](TDK-Lambda-i7A-Specification.pdf) | 28 V nominal bus to 24 V valve rail |
 | EnerSys CYCLON 0819-0020 | [EnerSys-CYCLON-Selection-Guide.pdf](EnerSys-CYCLON-Selection-Guide.pdf) | Backup battery, 12 V 2x3 monobloc |

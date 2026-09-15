@@ -1,14 +1,18 @@
 # Temp and Pressure Sensor Assembly
 
-CAD for mounting the engine sensors and routing their cables.
+This folder is only for the sensor mounting and cable-routing CAD on the thruster. The tank-side sensors and plumbing are outside this assembly.
 
-Locations I need to cover:
+My AST20PT locations are:
 
-- chamber wall
-- injector
-- fuel and oxidizer inlets
-- both sides of the retained valves where needed
-- cooling jacket inlet and outlet
+- fuel before and after MFV
+- N2O before and after MOV
+- igniter fuel after IFV
+- igniter oxidizer after IOV
+- chamber purge after CPV
+- igniter purge after IPV
 - remote chamber pressure pickup
+- cooling jacket inlet and outlet
 
-This folder contains the mechanical CAD only. PCB and electrical design files live in the EE project folders.
+The hot-structure locations are four chamber-wall thermocouples and one injector thermocouple.
+
+The igniter branch sensors sit after their valves. The chamber pressure sensor stays away from the hot wall on a remote pickup. PCB and electrical work stay in the EE project folders.
