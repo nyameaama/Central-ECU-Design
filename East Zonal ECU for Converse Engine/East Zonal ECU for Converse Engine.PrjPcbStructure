@@ -4,6 +4,8 @@ Record=NoMainPathDocument|SourceDocument=AM263_1.SchDoc|FileName=AM263_3.SchDoc|
 Record=NoMainPathDocument|SourceDocument=AM263_1.SchDoc|FileName=AM263_4_ADC.SchDoc|SheetNumber=4
 Record=NoMainPathDocument|SourceDocument=AM263_1.SchDoc|FileName=AM2634_5_EPWM.SchDoc|SheetNumber=5
 Record=NoMainPathDocument|SourceDocument=AM263_1.SchDoc|FileName=AM2634_6.SchDoc|SheetNumber=6
-Record=NoMainPathDocument|SourceDocument=AM263_1.SchDoc|FileName=Power Stage 12V.SchDoc|SheetNumber=8
+Record=NoMainPathDocument|SourceDocument=AM263_1.SchDoc|FileName=AST20PT.SchDoc|SheetNumber=10
+Record=NoMainPathDocument|SourceDocument=AM263_1.SchDoc|FileName=CAN.SchDoc|SheetNumber=9
 Record=NoMainPathDocument|SourceDocument=AM263_1.SchDoc|FileName=Power Stage 24V.SchDoc|SheetNumber=7
-Record=NoMainPathDocument|SourceDocument=AM263_1.SchDoc|FileName=Power Stage LP.SchDoc|SheetNumber=9
+Record=NoMainPathDocument|SourceDocument=AM263_1.SchDoc|FileName=Power Stage LP.SchDoc|SheetNumber=8
+Record=NoMainPathDocument|SourceDocument=AM263_1.SchDoc|FileName=SolenoidValve1.SchDoc|SheetNumber=11
